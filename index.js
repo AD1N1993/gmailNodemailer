@@ -1,6 +1,8 @@
 const express = require('express');
 const nodemailer = require("nodemailer");
-const port = 3010;
+const port =process.env.PORT || 3010;
+const smtp_login =process.env.SMTP_LOGIN || "___";
+const smtp_password =process.env.SMTP_PASSWORD || "___";
 const cors = require('cors')
 const bodyParser = require('body-parser');
 
@@ -16,8 +18,8 @@ let transporter = nodemailer.createTransport({
 	rejectUnauthorized:false
   },
   auth: {
-	user: "yourdeveloperone@gmail.com", // generated ethereal user
-	pass: "dV4ZtWbj9ZQ6", // generated ethereal password
+	user: smtp_login, // generated ethereal user
+	pass: smtp_password, // generated ethereal password
   },
 });
 
@@ -40,6 +42,8 @@ let {mail, message,name} = req.body
 </div>`, // html body
   });
 })
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
